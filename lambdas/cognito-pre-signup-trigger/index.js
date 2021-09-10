@@ -27,6 +27,12 @@ exports.handler = async event => {
   if (email == null) throw new Error('Email is required.')
   if (!validEmailRegex.test(email)) throw new Error('Email is invalid.')
 
+  const isBluestoneUser = email.endsWith('@bluestone.com.au')
+  const isDigiFiUser = email.endsWith('@digifi.io')
+  if (!isBluestoneUser && !isDigiFiUser) {
+    throw new Error('Email is invalid.')
+  }
+
   // To block the sign-up from occurring, throw an error. The message will be
   // displayed to the user when they attempt to sign up, before Cognito asks
   // for confirmation.
