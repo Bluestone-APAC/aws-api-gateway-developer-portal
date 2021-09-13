@@ -25,7 +25,7 @@ jobs:
       - run: sam package --template-file ./cloudformation/template.yaml --output-template-file ./cloudformation/packaged.yaml --s3-bucket "bst-developer-portal-asset-bucket-sandbox"
       - run: |
           sam deploy --template-file ./cloudformation/packaged.yaml \
-          --stack-name "bst-originations-nz-dev-portal" \
+          --stack-name "bst-orig-nz-dev-portal" \
           --s3-bucket "bst-developer-portal-asset-bucket-sandbox" \
           --capabilities CAPABILITY_NAMED_IAM \
           --parameter-overrides \
