@@ -1,0 +1,34 @@
+on:
+  push:
+    branches:
+      - originations-nz
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+          cache: "yarn"
+      - uses: aws-actions/setup-sam@v1
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.CICD_GITHUB_SANDBOX_IAM_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.CICD_GITHUB_SANDBOX_IAM_SECRET_KEY }}
+          aws-region: ap-southeast-2
+      - run: sam package --template-file ./cloudformation/template.yaml --output-template-file ./cloudformation/packaged.yaml --s3-bucket "bst-developer-portal-asset-bucket-sandbox"
+      - run: |
+          sam deploy --template-file ./cloudformation/packaged.yaml \
+          --stack-name "bst-originations-nz-dev-portal" \
+          --s3-bucket "bst-developer-portal-asset-bucket-sandbox" \
+          --capabilities CAPABILITY_NAMED_IAM \
+          --parameter-overrides \
+          DevPortalSiteS3BucketName="bst-originations-nz-sandbox-dev-portal-static-assets" \
+          ArtifactsS3BucketName="bst-originations-nz-sandbox-dev-portal-artifacts" \
+          CognitoDomainNameOrPrefix="bst-originations-nz-sandbox"
