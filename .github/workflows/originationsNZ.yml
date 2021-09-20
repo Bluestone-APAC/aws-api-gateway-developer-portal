@@ -24,7 +24,7 @@ jobs:
           aws-region: ap-southeast-2
       - run: sam package --template-file ./cloudformation/template.yaml --output-template-file ./cloudformation/packaged.yaml --s3-bucket "bst-developer-portal-asset-bucket-sandbox"
       - run: |
-          sam deploy --template-file ./cloudformation/packaged.yaml \
+          sam deploy --no-fail-on-empty-changeset --template-file ./cloudformation/packaged.yaml \
           --stack-name "bst-orig-nz-dev-portal" \
           --s3-bucket "bst-developer-portal-asset-bucket-sandbox" \
           --capabilities CAPABILITY_NAMED_IAM \
@@ -54,7 +54,7 @@ jobs:
           aws-region: ap-southeast-2
       - run: sam package --template-file ./cloudformation/template.yaml --output-template-file ./cloudformation/packaged.yaml --s3-bucket "bst-developer-portal-asset-bucket-staging"
       - run: |
-          sam deploy --template-file ./cloudformation/packaged.yaml \
+          sam deploy --no-fail-on-empty-changeset --template-file ./cloudformation/packaged.yaml \
           --stack-name "bst-orig-nz-dev-portal-stg" \
           --s3-bucket "bst-developer-portal-asset-bucket-staging" \
           --capabilities CAPABILITY_NAMED_IAM \
