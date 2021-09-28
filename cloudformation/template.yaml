@@ -722,9 +722,7 @@ Resources:
       KeySchema:
       - AttributeName: UserId
         KeyType: HASH
-      ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+      BillingMode: PAY_PER_REQUEST
 
   FeedbackTable:
     Type: AWS::DynamoDB::Table
