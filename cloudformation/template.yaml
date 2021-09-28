@@ -695,9 +695,7 @@ Resources:
       KeySchema:
       - AttributeName: Id
         KeyType: HASH
-      ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+      BillingMode: PAY_PER_REQUEST
       # Marketplace support is currently broken
       # GlobalSecondaryIndexes:
       # - IndexName: MarketplaceCustomerIdIndex
