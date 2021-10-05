@@ -29,7 +29,9 @@ exports.handler = async event => {
 
   const isBluestoneUser = email.endsWith('@bluestone.com.au')
   const isDigiFiUser = email.endsWith('@digifi.io')
-  if (!isBluestoneUser && !isDigiFiUser) {
+  const isLoanMarketUser = email.endsWith('loanmarket.com') || email.endsWith('loanmarketgroup.com')
+
+  if (!isBluestoneUser && !isDigiFiUser && !isLoanMarketUser) {
     throw new Error('Email is invalid.')
   }
 

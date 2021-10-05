@@ -19,6 +19,24 @@ describe('Cognito pre-signup trigger', () => {
     expect(result).toEqual(event)
   })
 
+  test('should confirm users with a loanmarket email', async () => {
+    const event = {
+      userName: 'username',
+      request: { userAttributes: { email: 'someone@loanmarket.com' } }
+    }
+    const result = await index.handler(event)
+    expect(result).toEqual(event)
+  })
+
+  test('should confirm users with a loanmarketgroup email', async () => {
+    const event = {
+      userName: 'username',
+      request: { userAttributes: { email: 'someone@loanmarketgroup.com' } }
+    }
+    const result = await index.handler(event)
+    expect(result).toEqual(event)
+  })
+
   test('should reject users with no emails', async () => {
     const event = {
       userName: 'username',
